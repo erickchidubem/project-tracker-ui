@@ -52,7 +52,12 @@ export class ProjectFormComponent implements OnInit {
       this.isEditMode = true;
       this.projectId = +id;
       this.projectService.getById(this.projectId).subscribe(project => {
-        this.form.patchValue(project);
+        this.form.patchValue({
+          ...project,
+          status: String(project.status),
+          startDate: project.startDate.split('T')[0],
+          endDate: project.endDate.split('T')[0],
+        });
       });
     }
   }
