@@ -1,0 +1,43 @@
+<div class="container">
+  <h2>{{ isEditMode ? 'Edit' : 'Create' }} Project</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group mb-3">
+      <label>Name</label>
+      <input formControlName="name" class="form-control" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label>Description</label>
+      <textarea formControlName="description" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group mb-3">
+      <label>Owner</label>
+      <input formControlName="owner" class="form-control" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label>Status</label>
+      <select formControlName="status" class="form-control">
+        <option value="Planned">Planned</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+      </select>
+    </div>
+
+    <div class="form-group mb-3">
+      <label>Start Date</label>
+      <input type="date" formControlName="startDate" class="form-control" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label>End Date</label>
+      <input type="date" formControlName="endDate" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+      {{ isEditMode ? 'Update' : 'Create' }}
+    </button>
+  </form>
+</div>

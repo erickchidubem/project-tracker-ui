@@ -1,9 +1,9 @@
 <div class="container">
-  <h2>Projects</h2>
+  <h2>Project List</h2>
 
-  <div class="mb-3">
-    <label>Status Filter:</label>
-    <select [(ngModel)]="filteredStatus" class="form-control">
+  <div class="form-group mb-3">
+    <label for="statusFilter">Filter by Status:</label>
+    <select id="statusFilter" [(ngModel)]="filteredStatus" class="form-control">
       <option value="">All</option>
       <option value="Planned">Planned</option>
       <option value="In Progress">In Progress</option>
@@ -11,8 +11,8 @@
     </select>
   </div>
 
-  <table class="table table-bordered">
-    <thead>
+  <table class="table table-bordered table-striped">
+    <thead class="thead-dark">
       <tr>
         <th>Name</th>
         <th>Owner</th>
@@ -22,7 +22,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let project of projects | filterByStatus: filteredStatus">
+      <tr *ngFor="let project of filteredProjects">
         <td>{{ project.name }}</td>
         <td>{{ project.owner }}</td>
         <td>{{ project.status }}</td>
