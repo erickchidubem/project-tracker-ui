@@ -1,27 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Project } from './project.model';
+import { ProjectApiPayload} from './project.model';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ProjectService {
-  private apiUrl = 'https://localhost:7209/api/projects';
+  private apiUrl = 'http://localhost:5002/api/projects';
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<Project[]> {
-    return this.http.get<Project[]>(this.apiUrl);
+  getAll(): Observable<ProjectApiPayload[]> {
+    return this.http.get<ProjectApiPayload[]>(this.apiUrl);
   }
 
-  getById(id: number): Observable<Project> {
-    return this.http.get<Project>(`${this.apiUrl}/${id}`);
+  getById(id: number): Observable<ProjectApiPayload> {
+    return this.http.get<ProjectApiPayload>(`${this.apiUrl}/${id}`);
   }
 
-  create(project: Project): Observable<Project> {
-    return this.http.post<Project>(this.apiUrl, project);
+  create(project: ProjectApiPayload): Observable<ProjectApiPayload> {
+    return this.http.post<ProjectApiPayload>(this.apiUrl, project);
   }
 
-  update(id: number, project: Project): Observable<void> {
+  update(id: number, project: ProjectApiPayload): Observable<void> {
     return this.http.put<void>(`${this.apiUrl}/${id}`, project);
   }
 

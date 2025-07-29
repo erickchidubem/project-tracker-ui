@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from './project.service';
-import { Project } from './project.model';
+import { ProjectApiPayload  } from './project.model';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -15,8 +15,8 @@ import { RouterModule } from '@angular/router';
   ]
 })
 export class ProjectListComponent implements OnInit {
-  projects: Project[] = [];
-  filteredStatus: string = '';
+  projects: ProjectApiPayload[] = [];
+  filteredStatus: number = 0; // Default to 'Planned'
 
   constructor(private projectService: ProjectService) {}
 
@@ -35,7 +35,7 @@ export class ProjectListComponent implements OnInit {
     });
   }
 
-  get filteredProjects(): Project[] {
+  get filteredProjects(): ProjectApiPayload[] {
     if (!this.filteredStatus) return this.projects;
     return this.projects.filter(p => p.status === this.filteredStatus);
   }

@@ -1,6 +1,8 @@
 <div class="container">
   <h2>{{ isEditMode ? 'Edit' : 'Create' }} Project</h2>
-
+ <div class="mb-3">
+    <a class="btn btn-outline-secondary" routerLink="/projects">← Back to Projects</a>
+  </div>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="form-group mb-3">
       <label>Name</label>

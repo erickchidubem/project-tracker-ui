@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from './project.service';
-import { Project } from './project.model';
+import { ProjectApiPayload,toApiPayload, ProjectFormModel } from './project.model';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-project-form',
@@ -11,6 +12,7 @@ import { CommonModule } from '@angular/common';
   imports: [
     ReactiveFormsModule,
     CommonModule,
+    RouterModule 
   ]
 })
 export class ProjectFormComponent implements OnInit {
@@ -52,8 +54,9 @@ export class ProjectFormComponent implements OnInit {
   onSubmit() {
     if (this.form.invalid) return;
 
-    const project = this.form.value as Project;
-
+    const formValue = this.form.value as ProjectFormModel;
+    const project = toApiPayload(formValue);
+   
     if (this.isEditMode) {
       this.projectService.update(this.projectId, project).subscribe(() => {
         this.router.navigate(['/projects']);
@@ -64,4 +67,13 @@ export class ProjectFormComponent implements OnInit {
       });
     }
   }
+
+  private mapStatusStringToEnum(status: string): number {
+  switch (status) {
+    case 'Planned': return 0;
+    case 'In Progress': return 1;
+    case 'Completed': return 2;
+    default: return 0;
+  }
+}
 }
