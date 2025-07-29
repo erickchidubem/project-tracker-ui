@@ -3,12 +3,15 @@ import { ProjectService } from './project.service';
 import { Project } from './project.model';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
   imports: [
     FormsModule,
-    CommonModule
+    CommonModule,
+    RouterModule
   ]
 })
 export class ProjectListComponent implements OnInit {

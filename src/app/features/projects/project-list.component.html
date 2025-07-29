@@ -1,6 +1,10 @@
 <div class="container">
   <h2>Project List</h2>
 
+  <div class="mb-3 text-end">
+    <a class="btn btn-primary" routerLink="/projects/new">+ New Project</a>
+  </div>
+
   <div class="form-group mb-3">
     <label for="statusFilter">Filter by Status:</label>
     <select id="statusFilter" [(ngModel)]="filteredStatus" class="form-control">
@@ -12,13 +16,14 @@
   </div>
 
   <table class="table table-bordered table-striped">
-    <thead class="thead-dark">
+    <thead>
       <tr>
         <th>Name</th>
         <th>Owner</th>
         <th>Status</th>
         <th>Start</th>
         <th>End</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -28,6 +33,9 @@
         <td>{{ project.status }}</td>
         <td>{{ project.startDate }}</td>
         <td>{{ project.endDate }}</td>
+        <td>
+          <a class="btn btn-sm btn-outline-secondary" [routerLink]="['/projects', project.id]">Edit</a>
+        </td>
       </tr>
     </tbody>
   </table>
