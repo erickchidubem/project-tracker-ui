@@ -28,7 +28,7 @@
     <tbody>
       <tr *ngFor="let project of filteredProjects">
         <td>{{ project.name }}</td>
-        <td>{{ project.status }}</td>
+        <td>{{ project.status | projectStatusLabel  }}</td>
         <td>{{ project.startDate }}</td>
         <td>{{ project.endDate }}</td>
         <td>

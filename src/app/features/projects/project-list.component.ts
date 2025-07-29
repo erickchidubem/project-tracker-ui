@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule,NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { ProjectStatusLabelPipe } from './project-status-label.pipe';
 @Component({
   standalone: true,
   selector: 'app-project-list',
@@ -14,6 +15,7 @@ import { Subscription } from 'rxjs';
     FormsModule,
     CommonModule,
     RouterModule,
+    ProjectStatusLabelPipe
     
   ]
 })
@@ -52,6 +54,6 @@ isLoading = false;
 
   get filteredProjects(): ProjectApiPayload[] {
     if (!this.filteredStatus) return this.projects;
-    return this.projects.filter(p => p.status === this.filteredStatus);
+    return this.projects.filter(p => p.status === Number(this.filteredStatus))
   }
 }

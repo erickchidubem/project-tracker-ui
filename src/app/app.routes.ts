@@ -7,4 +7,5 @@ export const appRoutes: Routes = [
  { path: 'projects', loadComponent: () => ProjectListComponent },
   { path: 'projects/new', loadComponent: () => ProjectFormComponent },
   { path: 'projects/:id', loadComponent: () => ProjectFormComponent },
+  { path: 'reload-projects', redirectTo: 'projects', pathMatch: 'full' },
 ];
