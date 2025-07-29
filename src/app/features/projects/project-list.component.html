@@ -37,4 +37,7 @@
       </tr>
     </tbody>
   </table>
+  <div *ngIf="!isLoading && filteredProjects.length === 0" class="alert alert-warning mt-3">
+  No projects found.
+</div>
 </div>

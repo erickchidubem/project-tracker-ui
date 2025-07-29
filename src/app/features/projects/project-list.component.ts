@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy,ChangeDetectorRef  } from '@angular/core';
 import { ProjectService } from './project.service';
 import { ProjectApiPayload  } from './project.model';
 import { FormsModule } from '@angular/forms';
@@ -25,7 +25,7 @@ export class ProjectListComponent implements OnInit,OnDestroy  {
  private routeSub!: Subscription;
 isLoading = false;
 
-  constructor(private projectService: ProjectService,private router: Router) {}
+  constructor(private projectService: ProjectService,private router: Router,private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.filteredStatus = ''; // Default to 'Planned'
@@ -45,9 +45,10 @@ isLoading = false;
       next: (data) => {
 
         console.log('Fetching projects...');
-console.log('Projects loaded:', data);
+        console.log('Projects loaded:', data);
         this.projects = data;
         this.isLoading = false;
+        this.cdr.detectChanges(); // Ensure view updates after async operation
       },
       error: (err) => {
         console.error('Error fetching projects:', err);
