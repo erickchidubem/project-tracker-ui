@@ -9,9 +9,9 @@
     <label for="statusFilter">Filter by Status:</label>
     <select id="statusFilter" [(ngModel)]="filteredStatus" class="form-control">
       <option value="">All</option>
-      <option value="Planned">Planned</option>
-      <option value="In Progress">In Progress</option>
-      <option value="Completed">Completed</option>
+      <option value="0">Planned</option>
+      <option value="1">In Progress</option>
+      <option value="2">Completed</option>
     </select>
   </div>
 <div *ngIf="isLoading" class="text-muted mb-3">Loading projects...</div>

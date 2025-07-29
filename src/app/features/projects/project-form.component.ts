@@ -50,10 +50,11 @@ export class ProjectFormComponent implements OnInit {
     });
   }
 
-  goBack():void {
-   this.router.navigateByUrl('/reload-projects');
+goBack(): void {
+  this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+    this.router.navigate(['/projects']);
+  });
 }
-
   onSubmit() {
     if (this.form.invalid) return;
 

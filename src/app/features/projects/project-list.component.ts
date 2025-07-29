@@ -21,13 +21,14 @@ import { ProjectStatusLabelPipe } from './project-status-label.pipe';
 })
 export class ProjectListComponent implements OnInit,OnDestroy  {
   projects: ProjectApiPayload[] = [];
-  filteredStatus: number = 0; // Default to 'Planned'
+ filteredStatus: string =''; // Default to 'All'
  private routeSub!: Subscription;
 isLoading = false;
 
   constructor(private projectService: ProjectService,private router: Router) {}
 
   ngOnInit(): void {
+    this.filteredStatus = ''; // Default to 'Planned'
     this.fetchProjects();
     this.routeSub = this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
@@ -42,6 +43,9 @@ isLoading = false;
     this.isLoading = true;
     this.projectService.getAll().subscribe({
       next: (data) => {
+
+        console.log('Fetching projects...');
+console.log('Projects loaded:', data);
         this.projects = data;
         this.isLoading = false;
       },
@@ -53,7 +57,8 @@ isLoading = false;
   }
 
   get filteredProjects(): ProjectApiPayload[] {
-    if (!this.filteredStatus) return this.projects;
-    return this.projects.filter(p => p.status === Number(this.filteredStatus))
+   console.log('Filtering projects by status:', this.filteredStatus);
+  if (this.filteredStatus === '') return this.projects;
+  return this.projects.filter(p => p.status === Number(this.filteredStatus));
   }
 }
