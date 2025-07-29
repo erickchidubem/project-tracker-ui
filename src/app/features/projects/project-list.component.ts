@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy,ChangeDetectorRef  } from '@angular/core';
 import { ProjectService } from './project.service';
 import { ProjectApiPayload  } from './project.model';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe  } from '@angular/common';
 import { RouterModule,NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
@@ -15,15 +15,17 @@ import { ProjectStatusLabelPipe } from './project-status-label.pipe';
     FormsModule,
     CommonModule,
     RouterModule,
-    ProjectStatusLabelPipe
+    ProjectStatusLabelPipe,
+    DatePipe
     
   ]
 })
 export class ProjectListComponent implements OnInit,OnDestroy  {
   projects: ProjectApiPayload[] = [];
- filteredStatus: string =''; // Default to 'All'
- private routeSub!: Subscription;
-isLoading = false;
+  filteredStatus: string =''; // Default to 'All'
+  private routeSub!: Subscription;
+  isLoading = false;
+  
 
   constructor(private projectService: ProjectService,private router: Router,private cdr: ChangeDetectorRef) {}
 

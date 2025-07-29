@@ -29,8 +29,8 @@
       <tr *ngFor="let project of filteredProjects">
         <td>{{ project.name }}</td>
         <td>{{ project.status | projectStatusLabel  }}</td>
-        <td>{{ project.startDate }}</td>
-        <td>{{ project.endDate }}</td>
+        <td>{{ project.startDate  | date: 'mediumDate' }}</td>
+        <td>{{ project.endDate  | date: 'mediumDate'}}</td>
         <td>
           <a class="btn btn-sm btn-outline-secondary" [routerLink]="['/projects', project.id]">Edit</a>
         </td>
