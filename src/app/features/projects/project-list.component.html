@@ -1,0 +1,34 @@
+<div class="container">
+  <h2>Projects</h2>
+
+  <div class="mb-3">
+    <label>Status Filter:</label>
+    <select [(ngModel)]="filteredStatus" class="form-control">
+      <option value="">All</option>
+      <option value="Planned">Planned</option>
+      <option value="In Progress">In Progress</option>
+      <option value="Completed">Completed</option>
+    </select>
+  </div>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Owner</th>
+        <th>Status</th>
+        <th>Start</th>
+        <th>End</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let project of projects | filterByStatus: filteredStatus">
+        <td>{{ project.name }}</td>
+        <td>{{ project.owner }}</td>
+        <td>{{ project.status }}</td>
+        <td>{{ project.startDate }}</td>
+        <td>{{ project.endDate }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
