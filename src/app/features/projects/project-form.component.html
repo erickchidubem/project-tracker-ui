@@ -3,10 +3,16 @@
  <div class="mb-3">
     <a class="btn btn-outline-secondary" (click)="goBack()">← Back to Projects</a>
   </div>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
     <div class="form-group mb-3">
       <label>Name</label>
-      <input formControlName="name" class="form-control" />
+      <input formControlName="name" class="form-control" 
+        class="form-control"
+        [class.is-invalid]="isInvalid('name')"
+      />
+      <div class="invalid-feedback" *ngIf="isInvalid('name')">
+          Name is required.
+      </div>
     </div>
 
     <div class="form-group mb-3">
@@ -26,12 +32,25 @@
 
     <div class="form-group mb-3">
       <label>Start Date</label>
-      <input type="date" formControlName="startDate" class="form-control" />
+      <input type="date" formControlName="startDate" class="form-control" 
+      [class.is-invalid]="isInvalid('startDate')"
+      />
+      <div class="invalid-feedback" *ngIf="isInvalid('startDate')">
+        Start date is required.
+      </div>
     </div>
 
     <div class="form-group mb-3">
       <label>End Date</label>
-      <input type="date" formControlName="endDate" class="form-control" />
+      <input type="date" formControlName="endDate" class="form-control"
+      [class.is-invalid]="isInvalid('endDate') || form.errors?.['endBeforeStart']"
+      />
+      <div class="invalid-feedback" *ngIf="isInvalid('endDate')">
+        End date is required.
+      </div>
+      <div class="invalid-feedback" *ngIf="form.errors?.['endBeforeStart'] && form.get('endDate')?.touched">
+        End date must be after start date.
+      </div>
     </div>
 
     <button type="submit" class="btn btn-primary">

@@ -1,10 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule,AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from './project.service';
 import { ProjectApiPayload,toApiPayload, ProjectFormModel } from './project.model';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+
+export function dateRangeValidator(): ValidatorFn {
+  return (group: AbstractControl): ValidationErrors | null => {
+    const start = group.get('startDate')?.value;
+    const end = group.get('endDate')?.value;
+
+    if (!start || !end) return null;
+
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+
+    return endDate > startDate ? null : { endBeforeStart: true };
+  };
+}
+
 
 @Component({
   selector: 'app-project-form',
@@ -47,7 +62,15 @@ export class ProjectFormComponent implements OnInit {
       status: ['Planned'],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
-    });
+    },
+  {
+    validators: [dateRangeValidator()] 
+  });
+  }
+
+  isInvalid(field: string): boolean {
+   const control = this.form.get(field);
+    return !!(control && control.invalid && (control.dirty || control.touched));
   }
 
 goBack(): void {
@@ -56,8 +79,10 @@ goBack(): void {
   });
 }
   onSubmit() {
-    if (this.form.invalid) return;
-
+   if (this.form.invalid) {
+    this.form.markAllAsTouched();
+    return;
+  }
     const formValue = this.form.value as ProjectFormModel;
     const project = toApiPayload(formValue);
    
