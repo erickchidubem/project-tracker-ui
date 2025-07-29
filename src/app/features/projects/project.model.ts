@@ -9,7 +9,6 @@ export enum ProjectStatus {
 export interface ProjectFormModel {
   name: string;
   description: string;
-  owner: string; 
   status: keyof typeof ProjectStatus; // 'Planned' | 'InProgress' | 'Completed'
   startDate: string; 
   endDate: string;
@@ -20,7 +19,6 @@ export interface ProjectApiPayload {
   id?: number; // Optional for create operations
   name: string;
   description: string;
-  owner: string;
   startDate: string; 
   endDate: string;
   status: number;
@@ -32,7 +30,6 @@ export function toApiPayload(form: ProjectFormModel): ProjectApiPayload {
     
     name: form.name,
     description: form.description,
-    owner: form.owner,
     startDate: new Date(form.startDate).toISOString(),
     endDate: new Date(form.endDate).toISOString(),
     status: ProjectStatus[form.status] // converts 'Planned' → 0

@@ -14,12 +14,11 @@
       <option value="Completed">Completed</option>
     </select>
   </div>
-
+<div *ngIf="isLoading" class="text-muted mb-3">Loading projects...</div>
   <table class="table table-bordered table-striped">
     <thead>
       <tr>
         <th>Name</th>
-        <th>Owner</th>
         <th>Status</th>
         <th>Start</th>
         <th>End</th>
@@ -29,7 +28,6 @@
     <tbody>
       <tr *ngFor="let project of filteredProjects">
         <td>{{ project.name }}</td>
-        <td>{{ project.owner}}</td>
         <td>{{ project.status }}</td>
         <td>{{ project.startDate }}</td>
         <td>{{ project.endDate }}</td>

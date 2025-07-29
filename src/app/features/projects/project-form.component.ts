@@ -44,12 +44,17 @@ export class ProjectFormComponent implements OnInit {
     this.form = this.fb.group({
       name: ['', Validators.required],
       description: [''],
-      owner: ['', Validators.required],
       status: ['Planned'],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
     });
   }
+
+  goBack():void {
+  this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+    this.router.navigate(['/projects']);
+  });
+}
 
   onSubmit() {
     if (this.form.invalid) return;
